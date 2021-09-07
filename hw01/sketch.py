@@ -1,5 +1,6 @@
+#!/usr/bin/python3
 import curses
-import time
+ 
 global board
 global x
 global y
@@ -10,12 +11,14 @@ board=[]
 x,y=0,0
 width,height=0,0
 
+#clears screen, prints introduction message, then waits for a keypress in a blocked state
+#mainscr is the screen variable it prints to
 def printStartInfo(mainscr):
     mainscr.clear()
     mainscr.addstr("Welcome to Matthew Callahan's terminal bassed etch-a-sketch\n use the w-a-s-d keys to move the currsor around, press c to clear the screen, and x to exit\n press any key to continue")
     mainscr.refresh()
     mainscr.getkey()
-
+#clears the screen and the variables that stores its state
 def clearScreen(mainscr):
     global board
     global x
@@ -26,13 +29,12 @@ def clearScreen(mainscr):
     #clear terminal screen
     mainscr.clear()
     width=curses.COLS
-    height=curses.LINES-1
+    height=curses.LINES-1 #the screen has one fewer lines than it reports
     #fill array with zeros to keep track of board
     board=[[' ' for i in range(width)] for j in range(height)]
-    x,y=0,0
     mainscr.move(y,x)
     mainscr.refresh()
-    
+#this moves the cursor on the screen and prints an X at this new location    
 def moveCursor(mainscr, direction):
     global board
     global x
@@ -71,9 +73,12 @@ def moveCursor(mainscr, direction):
 
 def main(mainscr):
     printStartInfo(mainscr)
+    x,y=0,0
     clearScreen(mainscr)
     while True:
-        s= mainscr.getkey()
+        s= mainscr.getkey()#wait for key press on active window, implicitly interrupt driven
+        #since only one key is accepted, this  can be a switch statement and diagonal movement is not possible
+        
         if s=="x":
             break #exit loop
         elif s=="c":
