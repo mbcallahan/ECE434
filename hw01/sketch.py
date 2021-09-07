@@ -25,7 +25,7 @@ def clearScreen(mainscr):
 
     #clear terminal screen
     mainscr.clear()
-    width=curses.COLS-1
+    width=curses.COLS
     height=curses.LINES-1
     #fill array with zeros to keep track of board
     board=[[' ' for i in range(width)] for j in range(height)]
@@ -57,7 +57,7 @@ def moveCursor(mainscr, direction):
         y=0
     if y<0:
         y=height-1
-    board[x][y]='X'
+    board[y][x]='X'
 
     #reprint the entire screen, since I don't trust all the screens to have memory
     mainscr.clear()
