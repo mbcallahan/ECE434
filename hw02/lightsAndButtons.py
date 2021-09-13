@@ -2,18 +2,23 @@
 import Adafruit_BBIO.GPIO as GPIO
 import time
 
-button0="P9_9"
-button1="P9_10"
-button2="P9_11"
-button3="P9_12"
+button0="P9_11"
+button1="P9_12"
+button2="P9_13"
+button3="P9_14"
 
-led0="P9_13"
-led1="P9_14"
-led2="P9_15"
-led3="P9_16"
+led0="P9_15"
+led1="P9_16"
+led2="P9_17"
+led3="P9_18"
 
+button2led= {button0:led0,button1:led1,button2:led2,button3:led3}
 def updateLeds(channel):
-    print("channel ",channel)
+    #print("channel ",channel)
+    #tests confirm that the channel variable stores exactly the name
+    state=not GPIO.input(channel)#since LEDs are active low, they need to be set to oposite state of buttons
+    GPIO.output(button2led[channel],state)
+
     
 
 #setup LEDs
@@ -44,3 +49,13 @@ GPIO.add_event_detect(button0, GPIO.BOTH, callback=updateLeds)
 GPIO.add_event_detect(button1, GPIO.BOTH, callback=updateLeds)
 GPIO.add_event_detect(button2, GPIO.BOTH, callback=updateLeds)
 GPIO.add_event_detect(button3, GPIO.BOTH, callback=updateLeds)
+
+try:
+    while True:
+        time.sleep(100)
+except KeyboardInterrupt:
+    print("\nExiting")
+    GPIO.cleanup()
+finally:
+    GPIO.cleanup()
+    
