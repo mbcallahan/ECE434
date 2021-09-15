@@ -2,7 +2,8 @@
 import curses
 import Adafruit_BBIO.GPIO as GPIO
 import time
- 
+
+#these are state variables
 global board
 global x
 global y
@@ -14,12 +15,13 @@ board=[]
 x,y=0,0
 width,height=0,0
 
-
+#names of the buttons with pin assignments
 buttonUp="P9_11"
 buttonDown="P9_12"
 buttonLeft="P9_13"
 buttonRight="P9_14"
 
+#dictuionary mapping button addresses to directions
 buttonDict= {buttonUp:'up', buttonDown:'down',buttonLeft:'left',buttonRight:'right'}
 
 #clears screen, prints introduction message, then waits for a keypress in a blocked state
@@ -33,6 +35,7 @@ def printStartInfo(mainscr):
 
 #clears the screen and the variables that stores its state
 def clearScreen(mainscr):
+    global screenClear
     global board
     global x
     global y
@@ -46,6 +49,7 @@ def clearScreen(mainscr):
     #fill array with zeros to keep track of board
     board=[[' ' for i in range(width)] for j in range(height)]
     mainscr.move(y,x)
+    screenClear=False
     mainscr.refresh()
 #this moves the cursor on the screen and prints an X at this new location    
 def moveCursor(mainscr, direction):
@@ -57,11 +61,11 @@ def moveCursor(mainscr, direction):
 
     if 'up' in direction:
         y=y-1;
-    elif 'down' in direction:
+    if 'down' in direction:
         y=y+1;
-    elif 'right' in direction:
+    if 'right' in direction:
         x=x+1;
-    elif 'left' in direction:
+    if 'left' in direction:
         x=x-1;
     #since this is a digital etch-asketch, the edges wrap
     if x>=width-1:
@@ -93,8 +97,8 @@ def catchKey(key):
             commands+=buttonDict[button]
     #check for special commands to end the program
     if ('up' in commands) and ('down' in commands) and ('left' in commands) and ('right' in commands):
-        global keepAlive
-        keepAlive=False
+        global stayAlive
+        stayAlive=False
         return
     if (('up' in commands) and ('down' in commands)) or(('left' in commands) and ('right' in commands)):
         global screenClear
@@ -118,7 +122,10 @@ def main(mainscr):
         time.sleep(1)
     x,y=0,0
     global screenClear
+    screenClear=False
+    
     global commands
+    commands=''
     clearScreen(mainscr)
     while stayAlive:
         if screenClear:
