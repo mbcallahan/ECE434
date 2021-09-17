@@ -31,3 +31,7 @@ I get 3.5us period and 289kHz
 **frequency**|4.15Hz|22.7Hz|48Hz|63Hz|6.4kHz|3.2kHz|5.13kHz|5.71kHz|289kHz
 ---------
 **CPU Usage**|19%|96%|100%|100%|100%|98%|100%|100%|not measured
+
+
+
+You will have to trust me about the fail2ban. the rest of the demo is in demoVideo.mkv
