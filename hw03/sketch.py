@@ -5,6 +5,7 @@ import smbus
 import time
 from Adafruit_BBIO.Encoder import RotaryEncoder, eQEP2, eQEP1
 
+#setup encoders
 encoder1= RotaryEncoder(eQEP1)
 encoder2=RotaryEncoder(eQEP2)
 encoder1.setAbsolute()
@@ -35,7 +36,7 @@ def printStartInfo():
     allyellow=[0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff]
     bus.write_i2c_block_data(matrix,0,allyellow)
     
-
+#convert board variable to the message to send to the green leds on the dot matrix
 def printBoard():
     global board
     printlist=[]
@@ -99,6 +100,7 @@ prev2=0
 tollerance=10
 while True:
     command=''
+    #check the encoder movements
     if(encoder1.position>prev1+tollerance):
         command+='left'
     if(encoder1.position<prev1-tollerance):
@@ -111,5 +113,5 @@ while True:
     prev2=encoder2.position        
     moveCursor(command)
     printBoard()
-    sleep(0.25)
+    sleep(0.25)#poll at 4Hz
     

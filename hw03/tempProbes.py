@@ -9,8 +9,10 @@ bus=smbus.SMBus(2)#pull from ic2 bus 2
 address0=0x48
 address1=0x49
 intPin='P9_12'
+#convert temperatures
 def cToF(temp):
     return 5*temp/9+32
+#handle temperature interupt
 def tempInt(temp):
     print("\t\tTemperature Intterupt!!!!!!!!!!!")
 
@@ -20,6 +22,7 @@ bus.write_byte_data(address0, 3,24)
 
 bus.write_byte_data(address1, 2,20)
 bus.write_byte_data(address1, 3,24)
+#setup to recieve interupt
 GPIO.setup(intPin,GPIO.IN, GPIO.PUD_UP)
 GPIO.add_event_detect(intPin, GPIO.FALLING, callback=tempInt)#use falling edge becase intterupt is active low
 
