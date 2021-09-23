@@ -93,7 +93,7 @@ def moveCursor(direction):
 
 printStartInfo()
 time.sleep(1)
-
+#draw a pattern on the screen to show that diagonal lines work
 clearScreen()
 x,y=3,3
 board[x][y]=1
@@ -116,10 +116,10 @@ clearScreen()
 prev1=0
 prev2=0
 tollerance=2
-while True:
+while True:#forrever loop
     command=''
 
-    #check the encoder movements
+    #check the encoder movements, include a tollerance of one encoder tick, two counts
     if(encoder1.position>(prev1+tollerance)):
         command+='left'
         print('left')
