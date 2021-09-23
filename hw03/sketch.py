@@ -3,10 +3,10 @@
 #i2C comes from i2cmatrix.py example from Dr. Yoder
 import smbus
 import time
-from Adafruit_BBIO.Encoder import RotaryEncoder, eQEP2, eQEP1
+from Adafruit_BBIO.Encoder import RotaryEncoder, eQEP2, eQEP1,eQEP0
 
 #setup encoders
-encoder1= RotaryEncoder(eQEP1)
+encoder1= RotaryEncoder(eQEP0)
 encoder2=RotaryEncoder(eQEP2)
 encoder1.setAbsolute()
 encoder1.enable()
@@ -93,18 +93,39 @@ def moveCursor(direction):
 
 printStartInfo()
 time.sleep(1)
-x,y=0,0
+
+clearScreen()
+x,y=3,3
+board[x][y]=1
+printBoard()
+time.sleep(.25)
+moveCursor('upleft')
+printBoard()
+time.sleep(1)
+moveCursor('downright')
+printBoard()
+time.sleep(.25)
+moveCursor('downright')
+printBoard()
+time.sleep(.25)
+moveCursor('downright')
+printBoard()
+time.sleep(.25)
+time.sleep(1)
 clearScreen()
 prev1=0
 prev2=0
-tollerance=10
+tollerance=2
 while True:
     command=''
+
     #check the encoder movements
-    if(encoder1.position>prev1+tollerance):
+    if(encoder1.position>(prev1+tollerance)):
         command+='left'
-    if(encoder1.position<prev1-tollerance):
+        print('left')
+    if(encoder1.position<(prev1-tollerance)):
         command+='right'
+        print('right')
     if(encoder2.position>prev2+tollerance):
         command+='up'
     if(encoder2.position<prev2-tollerance):
@@ -113,5 +134,6 @@ while True:
     prev2=encoder2.position        
     moveCursor(command)
     printBoard()
-    sleep(0.25)#poll at 4Hz
+
+    time.sleep(0.25)#poll at 4Hz
     
