@@ -25,7 +25,7 @@ Matt Hummel found that the shell script runs faster when the comments are remove
 ##GPIOD
 I get 3.5us period and 289kHz
 
-##summerizing table
+## summerizing table
 **Script option**|Default shell|fast bash|optomised bash|optomised sh|python|C sysfs unmodified|C lseek|Csysfs fast|GPIOD
 ------------
 **frequency**|4.15Hz|22.7Hz|48Hz|63Hz|6.4kHz|3.2kHz|5.13kHz|5.71kHz|289kHz
@@ -44,12 +44,12 @@ You will have to trust me about the fail2ban. the rest of the demo is in demoVid
 |  7/7 | Etch-a-Sketch works
 |      | Measuring a gpio pin on an Oscilloscope 
 |  2/2 | Questions answered
-|  2/2 | Table complete
-|  2/2 | lseek()
+|  4/4 | Table complete
 |  2/2 | gpiod
 |      | Security
 |  1/1 | ssh port
 |  1/1 | iptables
 |  1/1 | fail2ban
-| 20   | **Total**
+| 20/20   | **Total**
 
+Nice video
