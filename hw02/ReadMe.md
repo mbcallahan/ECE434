@@ -1,10 +1,10 @@
-#File structure
+# File structure
 ligtsAndButtons.py uses interrupts to turn on four leds based on the value of four buttons.
 
 sketch.py is the etch-a-sketch, this time using buttons to control the device
 
 
-#Measuring a gpio pin on an Oscilloscope
+# Measuring a gpio pin on an Oscilloscope
 
 1.using the togglegpio.sh script, I get a minimum voltage of -70mV and a maximum of 3.37V
 2. the frequency with default settings is 4.15 Hz, giving a period of 241ms. this is because the sleep time is for a half period. there is extra delay becaus efile writes take time.about 20% in this case
@@ -25,7 +25,7 @@ Matt Hummel found that the shell script runs faster when the comments are remove
 ##GPIOD
 I get 3.5us period and 289kHz
 
-##summerizing table
+## summerizing table
 **Script option**|Default shell|fast bash|optomised bash|optomised sh|python|C sysfs unmodified|C lseek|Csysfs fast|GPIOD
 ------------
 **frequency**|4.15Hz|22.7Hz|48Hz|63Hz|6.4kHz|3.2kHz|5.13kHz|5.71kHz|289kHz
@@ -35,3 +35,21 @@ I get 3.5us period and 289kHz
 
 
 You will have to trust me about the fail2ban. the rest of the demo is in demoVideo.mkv
+
+# hw02 grading
+
+| Points      | Description |
+| ----------- | ----------- |
+|  2/2 | Buttons and LEDs 
+|  7/7 | Etch-a-Sketch works
+|      | Measuring a gpio pin on an Oscilloscope 
+|  2/2 | Questions answered
+|  4/4 | Table complete
+|  2/2 | gpiod
+|      | Security
+|  1/1 | ssh port
+|  1/1 | iptables
+|  1/1 | fail2ban
+| 20/20   | **Total**
+
+Nice video
