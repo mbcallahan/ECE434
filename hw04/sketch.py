@@ -54,9 +54,9 @@ def moveCursor(direction):
     global y
     
     if 'up' in direction:
-        y=y-1;
-    if 'down' in direction:
         y=y+1;
+    if 'down' in direction:
+        y=y-1;
     if 'right' in direction:
         x=x+1;
     if 'left' in direction:
