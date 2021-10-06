@@ -67,7 +67,8 @@
 # However, in the final Beagle makefile, you'll see more
 # targets listed. 
 
-
+.PHONY : all
+all : app.arm
 
 
 
@@ -95,8 +96,10 @@ app.o: app.c
 # The "clean" rule should remove all files created by
 # the makefile (e.g. the executables and intermediate
 # files).
-
-	
+.PHONY : clean
+clean:
+	rm -rf app.arm
+	rm -rf app.o
 
 
 # -------------------------------------
