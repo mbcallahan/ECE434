@@ -6,3 +6,15 @@ Additionally, the eQEP setup gives the error of the configuration mode not being
 
 sketch.py is the etch-a-sketch. the setup.sh script configures the encoder pins
 tempProbes.py reads the temperature probes in F and configures interrupts.
+
+# hw03 grading
+
+| Points      | Description |
+| ----------- | ----------- |
+|  5/5 | TMP101 
+|  3/3 |   | setup.sh
+|  2/3 |   | Documentation | 
+|  5/5 | Etch-a-Sketch
+|  3/3 |   | setup.sh
+|  2/2 |   | Documentation
+| 20/20 | **Total**
