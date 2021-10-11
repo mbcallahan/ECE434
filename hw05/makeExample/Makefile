@@ -49,13 +49,14 @@
 # ------ includes -------
 # -----------------------
 
-
+-include ./path.mak
 
 # --------------------------------
 # ------ user-defined vars -------
 # --------------------------------
-
-
+CC := $(LINUXarm_GCC)
+CFLAGS := -g
+LINKER_FLAGS := -lstdc++
 
 # -----------------------
 # ------ make all -------
@@ -75,16 +76,18 @@ all : app.arm
 # -----------------------------------
 # ------ executable rule (.x) -------
 # -----------------------------------
-app.arm:app.o
-	/usr/bin/gcc -g app.o -o app.arm
 
+#this needs to be explicitly named to invoke the wildcards because it is called by all. 
+app.arm:app.o
+	$(CC) $(CFLAGS) $(LINKER_FLAGS) $< -o $@
+	@echo; echo $@ successfully created; echo
 # ---------------------------------------------------
 # ------ intermeditate object files rule (.o) -------
 # ---------------------------------------------------
 
 
-app.o: app.c
-	/usr/bin/gcc -g -c app.c -o app.o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 
 
@@ -115,3 +118,6 @@ clean:
 
 	
 
+.PHONY : test
+test:
+	@echo CC = $(CC)
