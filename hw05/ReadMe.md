@@ -20,3 +20,20 @@ I used the name adxl345 to hook it up. When it is connected, the following shows
 0 in_accel_y_raw               0 uevent
 
 the in_accel files change when acceleration changes. 
+
+# hw05 grading
+
+# hw05 grading
+
+| Points      | Description |
+| ----------- | ----------- |
+|  0/0 | Project 
+|  2/2 | Makefile
+|  6/6 | Kernel Source
+|  4/4 | Etch-a-Sketch
+|  8/8 | Kernel Modules: hello, ebbchar, gpio_test, led
+|  4/4 | Extras - Blink at different rates
+| 24/20 | **Total**
+
+*My comments are in italics. --may*
+
