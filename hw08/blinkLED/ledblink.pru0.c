@@ -15,7 +15,7 @@ void main(void) {
 	
 	/* Clear SYSCFG[STANDBY_INIT] to enable OCP master port */
 	//	CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
-
+	//blink P9_39 and USR3 at the same time as a debugging step
 	for(i=0; i<10; i++) {
 		gpio3[GPIO_SETDATAOUT]   = P931;	// The the USR3 LED on
 		gpio1[GPIO_SETDATAOUT] = USR3;
@@ -29,7 +29,7 @@ void main(void) {
 	__halt();
 }
 
-/* // Turns off triggers */
+/* // Turns off triggers for usrled3 */
 #pragma DATA_SECTION(init_pins, ".init_pins")
 #pragma RETAIN(init_pins)
 const char init_pins[] =
