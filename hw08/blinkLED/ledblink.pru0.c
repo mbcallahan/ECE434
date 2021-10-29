@@ -15,23 +15,18 @@ void main(void) {
 	
 	/* Clear SYSCFG[STANDBY_INIT] to enable OCP master port */
 	//	CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
-	//blink P9_39 and USR3 at the same time as a debugging step
-	for(i=0; i<10; i++) {
-		gpio3[GPIO_SETDATAOUT]   = P931;	// The the USR3 LED on
-		gpio1[GPIO_SETDATAOUT] = USR3;
-		__delay_cycles(500000000/5);    	// Wait 1/2 second
+	
+	while(1){
+	  gpio3[GPIO_SETDATAOUT]   = P931;//que the pin to be set high	
 
-		gpio3[GPIO_CLEARDATAOUT] = P931;
-		gpio1[GPIO_CLEARDATAOUT] = USR3;
-		__delay_cycles(500000000/5); 
+		//see if this is compiled away when set to zero
+		__delay_cycles(0);//from experiments, this is removed. 
+
+		gpio3[GPIO_CLEARDATAOUT] = P931;//que the pin to be set low
+	
+		__delay_cycles(0); 
 
 	}
 	__halt();
 }
 
-/* // Turns off triggers for usrled3 */
-#pragma DATA_SECTION(init_pins, ".init_pins")
-#pragma RETAIN(init_pins)
-const char init_pins[] =
-	"/sys/class/leds/beaglebone:green:usr3/trigger\0none\0" \
-	"\0\0";
