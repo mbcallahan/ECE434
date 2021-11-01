@@ -6,6 +6,7 @@
  *	The channels 0-11 are on PRU1 and channels 12-17 are on PRU0
  *	The period and duty cycle values are stored in each PRU's Data memory
  *	The enable bits are stored in the shared memory
+ *  Modified by MAtthew Callahan
  *
  */
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[])
 
 
 	int on[]  = {1, 2, 3, 4};
-	int off[] = {4, 3, 2, 1};
+	int off[] = {1, 3, 2, 1};//this line has the first element changed to make the writing to memory more clear
 
 	int ch;
 	for(ch=0; ch<MAXCH; ch++) {

@@ -14,8 +14,14 @@ By setting the display to infinite persistence, it seems to show the system to h
 ##PWM
 The voltage togling with PRU registers is done in the PWM folder. I wrote the code to have symmetric period, but the device does not quite produce that as shown in the scope_2 measurements in that folder. The standard deviation is about .15%, and the jitter is low.
 
+When running the multi-channel scripts, I can get the arm code to change the common memory and get a maximum period of 5.28Mhz when running on both PRUs and using Dr. Yoder's code with a single modification. 
+
+I compile the arm code with gcc pwm7-test.c -o pwm7-test.
+
+The output when I give it a 50% duty cycle is not a stable picture, so scope4 is a single period with the scope set to hold. 
+
 ##IO
-When an input was directed to control the output and a 300KHz signal was applied, the delay between input and output was about 35ns, or seven cycles. 
+When an input was directed to control the output and a 300KHz signal was applied, the delay between input and output was about 35ns, or seven cycles. as scope_3 shows
 
 
 
