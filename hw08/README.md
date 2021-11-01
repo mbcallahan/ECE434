@@ -11,6 +11,9 @@ when delay_cycles is called with zero, I get a square wave missing many harmonic
 
 By setting the display to infinite persistence, it seems to show the system to have low jitter except for occasional failures. these are recorded in scope_1
 
+##PWM
+The voltage togling with PRU registers is done in the PWM folder. I wrote the code to have symmetric period, but the device does not quite produce that as shown in the scope measurements in that folder. The standard deviation is about .15%, and the jitter is low.
+
 
 The pins used to do the multi-channel PWM are pins P9_31, P9_29, P8_45 and P8_46. 
 

@@ -3,7 +3,7 @@
 #include "resource_table_empty.h"
 #include "prugpio.h"
 
-#define DELAY 200/5 //want to wait 200ns, 5ns per clock cycle
+//In order to have a 50MHz signal, there needs to be 20ns period. This means there needs to be four instructions. to have it symmetric, there can be one write instruction so there is only one instruction between the writes.
 volatile register uint32_t __R30;
 volatile register uint32_t __R31;
 
@@ -15,10 +15,8 @@ void main(void)
     CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
 
     while(1) {
-        __R30 |= gpio;      // Set the GPIO pin to 1
-        __delay_cycles(DELAY);
-        __R30 &= ~gpio;     // Clear the GPIO pin
-        __delay_cycles(DELAY);
+        __R30 ^= gpio;      // toggle the gpio pin
+        
     }
 }
 
