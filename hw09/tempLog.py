@@ -27,14 +27,10 @@ import time, sys
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1GZPqjOIEZiOsgyKBMQ7HJg2G8iRbT1ArVUrYmReLhUI'
+SAMPLE_SPREADSHEET_ID = '1iZ2gFq6zwqursdhlRfQFN2ny_H_gO89qKQbeLcEc2R4'
 SAMPLE_RANGE_NAME = 'A2'
-
-BUS="i2c-1"
-ADDR="0x40"
-siPATH="/sys/class/i2c-adapter/" + BUS + "/1-0040/iio:device1/"
-tmpPATH="/sys/class/hwmon/hwmon0/"
-sleepTime=60*60
+#read the 1wire temp probes via the linux driver. assume they are the first three devices
+sleepTime=10*60
 
 def main():
     """Shows basic usage of the Sheets API.
@@ -65,7 +61,7 @@ def main():
     # Call the Sheets API
     sheet = service.spreadsheets()
     
-    firstTime = True
+    firstTime = False
     while True:
         # Get current temp and humidity
         # Temp seems a bit low, add an offset
@@ -79,28 +75,27 @@ def main():
                                         valueInputOption='USER_ENTERED', 
                                         body=body
                                         ).execute()
-        offset = 2.8
-        fd = open(siPATH + "in_temp_raw")
-        temp = str(float(fd.read().replace('\n', ''))/100 + offset)
+
+        fd = open("/sys/class/hwmon/hwmon0/temp1_input")
+        temp = float(fd.read().replace('\n', ''))/1000
+        fd.close()
+
+        fd = open("/sys/class/hwmon/hwmon1/temp1_input")
+        temp2 = float(fd.read().replace('\n', ''))/1000
         fd.close()
         
-        fd = open(siPATH + "in_humidityrelative_raw")
-        humid = str(float(fd.read().replace('\n', ''))/100)
+        fd = open("/sys/class/hwmon/hwmon2/temp1_input")
+        temp3 = float(fd.read().replace('\n', ''))/1000
         fd.close()
-    
-        fd = open(tmpPATH + "temp1_input")
-        temp2 = float(fd.read().replace('\n', ''))/1000
-        temp2 = 9/5*temp2 + 32
-        fd.close()
-    
-        values = [ [time.time()/60/60/24+ 25569 - 5/24, temp, humid, temp2]]
+        
+        values = [ [time.time()/60/60/24+ 25569 - 5/24, temp, temp2,temp3]]
         body = {'values': values}
         result = sheet.values().append(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                     range=SAMPLE_RANGE_NAME,
                                     valueInputOption='USER_ENTERED', 
                                     body=body
                                     ).execute()
-        # print(result)
+        #print(result)
         time.sleep(sleepTime)
 
 if __name__ == '__main__':
